@@ -6,7 +6,6 @@ st.set_page_config(
     page_title="Application aide à la décision - MCDM", layout="wide"
 )
 
-# --- STYLES CSS ET ANIMATIONS PERSONNALISÉS ---
 st.markdown(
     """
     <style>
@@ -87,7 +86,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# --- EN-TÊTE DESIGN ---
+
 st.markdown(
     """
     <div class="main-header">
@@ -98,7 +97,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# --- SIDEBAR : Paramètres ---
 st.sidebar.markdown("### Configuration du Problème")
 
 num_alt = st.sidebar.number_input(
@@ -145,7 +143,6 @@ for j in range(num_crit):
 weights = np.array(weights)
 weights = weights / np.sum(weights)  # Normalisation
 
-# --- CORPS PRINCIPAL : Matrice de décision ---
 st.markdown("### Saisie de la matrice de décision")
 st.markdown(
     "Renseignez ci-dessous les performances quantitatives ou scores de chaque"
@@ -165,12 +162,12 @@ for i, alt in enumerate(alt_names):
 
 X = np.array(matrix_data)
 
-# Affichage de la matrice sous forme de DataFrame dans un conteneur stylisé
+
 st.markdown("<br>", unsafe_allow_html=True)
 df_decision = pd.DataFrame(X, index=alt_names, columns=crit_names)
 st.dataframe(df_decision, use_container_width=True)
 
-# --- CHOIX DU MODELE ---
+
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("### Choix du Modèle de Classement")
 model_choice = st.selectbox(
@@ -179,7 +176,6 @@ model_choice = st.selectbox(
 )
 
 
-# --- FONCTIONS DES METHODES ---
 def run_waspas(X, weights, crit_types):
   m, n = X.shape
   r = np.zeros((m, n))
@@ -267,7 +263,6 @@ def run_vikor(X, weights, crit_types, v_strat=0.5):
   return Q, S, R
 
 
-# --- EXECUTION ET AFFICHAGE ---
 st.markdown("<br>", unsafe_allow_html=True)
 if st.button("Lancer l'Évaluation et le Classement"):
   st.markdown("---")
@@ -323,7 +318,6 @@ if st.button("Lancer l'Évaluation et le Classement"):
     st.dataframe(df_vikor, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# --- Copyright en bas de page ---
 st.markdown("---")
 st.markdown(
     "<div style='text-align: center; color: #666; font-size: 0.9rem; padding:"
